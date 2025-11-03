@@ -10,34 +10,41 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // In production, this would fetch from an API
-    // For now, using sample data
-    const sampleData: ComparisonData = {
-      overall: { gcp: 85.5, aws: 84.78 },
-      financial: {
-        gcp: { score: 83.0, metrics: {} },
-        aws: { score: 81.0, metrics: {} }
-      },
-      performance: {
-        gcp: { score: 87.6, metrics: {} },
-        aws: { score: 88.6, metrics: {} }
-      },
-      scalability: {
-        gcp: { score: 86.8, metrics: {} },
-        aws: { score: 88.2, metrics: {} }
-      },
-      ease_of_use: {
-        gcp: { score: 85.0, metrics: {} },
-        aws: { score: 81.4, metrics: {} }
-      },
-      metadata: {
-        timestamp: new Date().toISOString(),
-        version: '1.0.0'
-      }
-    }
-    
-    setData(sampleData)
-    setLoading(false)
+    // Try to fetch from API, fallback to sample data
+    fetch('/api/comparison')
+      .then(res => res.json())
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
+      .catch(() => {
+        // Fallback to sample data if API is not available
+        const sampleData: ComparisonData = {
+          overall: { gcp: 85.5, aws: 84.78 },
+          financial: {
+            gcp: { score: 83.0, metrics: {} },
+            aws: { score: 81.0, metrics: {} }
+          },
+          performance: {
+            gcp: { score: 87.6, metrics: {} },
+            aws: { score: 88.6, metrics: {} }
+          },
+          scalability: {
+            gcp: { score: 86.8, metrics: {} },
+            aws: { score: 88.2, metrics: {} }
+          },
+          ease_of_use: {
+            gcp: { score: 85.0, metrics: {} },
+            aws: { score: 81.4, metrics: {} }
+          },
+          metadata: {
+            timestamp: new Date().toISOString(),
+            version: '1.0.0'
+          }
+        }
+        setData(sampleData)
+        setLoading(false)
+      })
   }, [])
 
   if (loading) {
