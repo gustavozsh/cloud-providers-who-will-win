@@ -3,21 +3,7 @@ import Head from 'next/head'
 import ComparisonChart from '@/components/ComparisonChart'
 import ScoreCard from '@/components/ScoreCard'
 import DetailedAnalysis from '@/components/DetailedAnalysis'
-
-interface ComparisonData {
-  overall: {
-    gcp: number
-    aws: number
-  }
-  financial: any
-  performance: any
-  scalability: any
-  ease_of_use: any
-  metadata: {
-    timestamp: string
-    version: string
-  }
-}
+import type { ComparisonData } from '@/types/comparison'
 
 export default function Home() {
   const [data, setData] = useState<ComparisonData | null>(null)

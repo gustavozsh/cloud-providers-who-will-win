@@ -3,12 +3,10 @@ Main comparison runner for cloud providers analysis.
 Executes all comparison modules and generates consolidated results.
 """
 import json
-import sys
 from datetime import datetime
 from pathlib import Path
 
-# Import analysis modules
-sys.path.append(str(Path(__file__).parent))
+# Import analysis modules using relative imports
 from financial.analyzer import FinancialAnalyzer
 from performance.analyzer import PerformanceAnalyzer
 from scalability.analyzer import ScalabilityAnalyzer

@@ -8,9 +8,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
+import type { ComparisonData } from '@/types/comparison'
 
 interface ComparisonChartProps {
-  data: any
+  data: ComparisonData
 }
 
 export default function ComparisonChart({ data }: ComparisonChartProps) {

@@ -5,8 +5,6 @@ interface ScoreCardProps {
 }
 
 export default function ScoreCard({ title, score, color }: ScoreCardProps) {
-  const percentage = (score / 100) * 100
-
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <h3 className="text-xl font-bold mb-4 text-gray-800">{title}</h3>
@@ -25,7 +23,7 @@ export default function ScoreCard({ title, score, color }: ScoreCardProps) {
         </div>
         <div className="overflow-hidden h-4 mb-4 text-xs flex rounded bg-gray-200">
           <div
-            style={{ width: `${percentage}%` }}
+            style={{ width: `${score}%` }}
             className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${color}`}
           />
         </div>

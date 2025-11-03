@@ -1,5 +1,7 @@
+import type { ComparisonData } from '@/types/comparison'
+
 interface DetailedAnalysisProps {
-  data: any
+  data: ComparisonData
 }
 
 export default function DetailedAnalysis({ data }: DetailedAnalysisProps) {
