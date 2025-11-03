@@ -1,0 +1,1 @@
+"""GCP data collector module."""
