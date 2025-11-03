@@ -47,3 +47,8 @@ htmlcov/
 *.tmp
 tmp/
 temp/
+
+# Generated data files
+collectors/**/gcp_data.json
+collectors/**/aws_data.json
+*_data.json
