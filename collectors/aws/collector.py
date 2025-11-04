@@ -12,7 +12,11 @@ class AWSCollector:
     
     def collect_pricing_data(self):
         """Collect pricing information for key services."""
-        # Sample data - in production, would use AWS Pricing API
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, would use AWS Pricing API:
+        # import boto3
+        # pricing = boto3.client('pricing', region_name='us-east-1')
+        # See: https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html
         return {
             'compute': {
                 't3.medium': {'price_per_hour': 0.0416, 'vcpus': 2, 'memory_gb': 4},

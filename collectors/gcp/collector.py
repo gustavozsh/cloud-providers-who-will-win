@@ -12,7 +12,10 @@ class GCPCollector:
     
     def collect_pricing_data(self):
         """Collect pricing information for key services."""
-        # Sample data - in production, would use GCP Pricing API
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, would use GCP Pricing API:
+        # from google.cloud import billing
+        # See: https://cloud.google.com/billing/docs/apis
         return {
             'compute': {
                 'n1-standard-1': {'price_per_hour': 0.0475, 'vcpus': 1, 'memory_gb': 3.75},

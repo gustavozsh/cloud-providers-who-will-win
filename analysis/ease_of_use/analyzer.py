@@ -19,7 +19,14 @@ class EaseOfUseAnalyzer:
         Perform ease of use analysis comparing GCP and AWS.
         Returns detailed scores and reasoning.
         """
-        # Sample data - based on developer experience surveys
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, scores would be based on:
+        # - Developer surveys (Stack Overflow, etc.)
+        # - User experience studies
+        # - Training completion rates
+        # - Support ticket analysis
+        # Current scores are estimates based on public developer feedback
+        
         gcp_metrics = {
             'documentation': 88,  # Clear, well-organized docs
             'console_usability': 90,  # Clean, intuitive UI

@@ -19,7 +19,12 @@ class FinancialAnalyzer:
         Perform financial analysis comparing GCP and AWS.
         Returns detailed scores and reasoning.
         """
-        # Sample data - in production, this would fetch real pricing data
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, this would fetch real pricing data from official APIs:
+        # - GCP: Cloud Billing API (cloud.google.com/billing/docs/apis)
+        # - AWS: AWS Price List API (aws.amazon.com/pricing/)
+        # Current scores are estimates based on public documentation
+        
         gcp_metrics = {
             'pricing_model': 85,  # Per-second billing, sustained use discounts
             'cost_predictability': 80,  # Good cost estimation tools

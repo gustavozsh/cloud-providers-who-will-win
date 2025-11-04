@@ -19,7 +19,13 @@ class ScalabilityAnalyzer:
         Perform scalability analysis comparing GCP and AWS.
         Returns detailed scores and reasoning.
         """
-        # Sample data - in production, this would include real scaling tests
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, this would include real scaling tests and metrics from:
+        # - Actual auto-scaling tests
+        # - Service limit data from provider APIs
+        # - Real multi-region deployment tests
+        # Current scores are estimates based on public documentation
+        
         gcp_metrics = {
             'auto_scaling': 87,  # GKE autopilot, managed instance groups
             'load_balancing': 90,  # Global load balancing

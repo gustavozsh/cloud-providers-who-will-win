@@ -19,7 +19,13 @@ class PerformanceAnalyzer:
         Perform performance analysis comparing GCP and AWS.
         Returns detailed scores and reasoning.
         """
-        # Sample data - in production, this would include benchmark results
+        # ⚠️ SAMPLE/SYNTHETIC DATA - For demonstration purposes only
+        # In production, this would include real benchmark results from:
+        # - Actual performance tests on both platforms
+        # - Published benchmarks (TPC, SPECcloud, etc.)
+        # - Real-world performance metrics
+        # Current scores are estimates based on public documentation and reviews
+        
         gcp_metrics = {
             'compute_performance': 88,  # Strong CPU/GPU performance
             'network_latency': 90,  # Excellent global network (Premium Tier)

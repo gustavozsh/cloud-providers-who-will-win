@@ -2,6 +2,8 @@
 
 Um sistema abrangente de comparação entre provedores de nuvem (GCP vs AWS) baseado em múltiplos critérios.
 
+> **⚠️ Importante**: Esta versão utiliza **dados sintéticos e de exemplo** para demonstração da plataforma. Os dados não são oficiais da Google ou Amazon. Veja [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) para mais detalhes sobre as fontes de dados.
+
 ## 🎯 Objetivo
 
 Analisar e comparar recursos de dados do Google Cloud Platform (GCP) e Amazon Web Services (AWS) para determinar qual provedor é melhor baseado em:
