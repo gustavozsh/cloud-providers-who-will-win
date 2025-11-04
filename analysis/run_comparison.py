@@ -11,6 +11,10 @@ from financial.analyzer import FinancialAnalyzer
 from performance.analyzer import PerformanceAnalyzer
 from scalability.analyzer import ScalabilityAnalyzer
 from ease_of_use.analyzer import EaseOfUseAnalyzer
+from logger_config import setup_logger
+
+# Set up logger
+logger = setup_logger(__name__)
 
 
 def calculate_overall_score(results):
@@ -36,57 +40,50 @@ def calculate_overall_score(results):
 
 
 def main():
-    print("=" * 60)
-    print("Cloud Providers Comparison Analysis")
-    print("GCP vs AWS")
-    print("=" * 60)
-    print()
+    logger.info("=" * 60)
+    logger.info("Cloud Providers Comparison Analysis")
+    logger.info("GCP vs AWS")
+    logger.info("=" * 60)
     
     # Run all analyses
     results = {}
     
-    print("Running Financial Analysis...")
+    logger.info("Running Financial Analysis...")
     financial = FinancialAnalyzer()
     results['financial'] = financial.analyze()
-    print(f"  GCP Score: {results['financial']['gcp']['score']:.2f}/100")
-    print(f"  AWS Score: {results['financial']['aws']['score']:.2f}/100")
-    print()
+    logger.info(f"  GCP Score: {results['financial']['gcp']['score']:.2f}/100")
+    logger.info(f"  AWS Score: {results['financial']['aws']['score']:.2f}/100")
     
-    print("Running Performance Analysis...")
+    logger.info("Running Performance Analysis...")
     performance = PerformanceAnalyzer()
     results['performance'] = performance.analyze()
-    print(f"  GCP Score: {results['performance']['gcp']['score']:.2f}/100")
-    print(f"  AWS Score: {results['performance']['aws']['score']:.2f}/100")
-    print()
+    logger.info(f"  GCP Score: {results['performance']['gcp']['score']:.2f}/100")
+    logger.info(f"  AWS Score: {results['performance']['aws']['score']:.2f}/100")
     
-    print("Running Scalability Analysis...")
+    logger.info("Running Scalability Analysis...")
     scalability = ScalabilityAnalyzer()
     results['scalability'] = scalability.analyze()
-    print(f"  GCP Score: {results['scalability']['gcp']['score']:.2f}/100")
-    print(f"  AWS Score: {results['scalability']['aws']['score']:.2f}/100")
-    print()
+    logger.info(f"  GCP Score: {results['scalability']['gcp']['score']:.2f}/100")
+    logger.info(f"  AWS Score: {results['scalability']['aws']['score']:.2f}/100")
     
-    print("Running Ease of Use Analysis...")
+    logger.info("Running Ease of Use Analysis...")
     ease_of_use = EaseOfUseAnalyzer()
     results['ease_of_use'] = ease_of_use.analyze()
-    print(f"  GCP Score: {results['ease_of_use']['gcp']['score']:.2f}/100")
-    print(f"  AWS Score: {results['ease_of_use']['aws']['score']:.2f}/100")
-    print()
+    logger.info(f"  GCP Score: {results['ease_of_use']['gcp']['score']:.2f}/100")
+    logger.info(f"  AWS Score: {results['ease_of_use']['aws']['score']:.2f}/100")
     
     # Calculate overall scores
     overall_scores = calculate_overall_score(results)
     results['overall'] = overall_scores
     
-    print("=" * 60)
-    print("OVERALL RESULTS")
-    print("=" * 60)
-    print(f"GCP Overall Score: {overall_scores['gcp']:.2f}/100")
-    print(f"AWS Overall Score: {overall_scores['aws']:.2f}/100")
-    print()
+    logger.info("=" * 60)
+    logger.info("OVERALL RESULTS")
+    logger.info("=" * 60)
+    logger.info(f"GCP Overall Score: {overall_scores['gcp']:.2f}/100")
+    logger.info(f"AWS Overall Score: {overall_scores['aws']:.2f}/100")
     
     winner = 'GCP' if overall_scores['gcp'] > overall_scores['aws'] else 'AWS'
-    print(f"🏆 Winner: {winner}")
-    print()
+    logger.info(f"🏆 Winner: {winner}")
     
     # Save results
     results['metadata'] = {
@@ -95,11 +92,13 @@ def main():
     }
     
     output_file = Path(__file__).parent / 'comparison_results.json'
-    with open(output_file, 'w') as f:
-        json.dump(results, f, indent=2)
-    
-    print(f"Results saved to: {output_file}")
-    print()
+    try:
+        with open(output_file, 'w') as f:
+            json.dump(results, f, indent=2)
+        logger.info(f"Results saved to: {output_file}")
+    except IOError as e:
+        logger.error(f"Failed to save results to {output_file}: {e}")
+        raise
     
     return results
 

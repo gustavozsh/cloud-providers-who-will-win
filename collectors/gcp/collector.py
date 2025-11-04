@@ -3,7 +3,16 @@ GCP Data Collector
 Collects pricing and service data from Google Cloud Platform.
 """
 import json
+import sys
 from datetime import datetime
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from logger_config import setup_collector_logger
+
+# Set up logger
+logger = setup_collector_logger(__name__)
 
 
 class GCPCollector:
@@ -60,7 +69,10 @@ if __name__ == '__main__':
     data = collector.collect_all()
     
     output_file = 'gcp_data.json'
-    with open(output_file, 'w') as f:
-        json.dump(data, f, indent=2)
-    
-    print(f"GCP data collected and saved to {output_file}")
+    try:
+        with open(output_file, 'w') as f:
+            json.dump(data, f, indent=2)
+        logger.info(f"GCP data collected and saved to {output_file}")
+    except IOError as e:
+        logger.error(f"Failed to save GCP data to {output_file}: {e}")
+        raise

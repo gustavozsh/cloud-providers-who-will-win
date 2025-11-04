@@ -3,7 +3,16 @@ AWS Data Collector
 Collects pricing and service data from Amazon Web Services.
 """
 import json
+import sys
 from datetime import datetime
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from logger_config import setup_collector_logger
+
+# Set up logger
+logger = setup_collector_logger(__name__)
 
 
 class AWSCollector:
@@ -61,7 +70,10 @@ if __name__ == '__main__':
     data = collector.collect_all()
     
     output_file = 'aws_data.json'
-    with open(output_file, 'w') as f:
-        json.dump(data, f, indent=2)
-    
-    print(f"AWS data collected and saved to {output_file}")
+    try:
+        with open(output_file, 'w') as f:
+            json.dump(data, f, indent=2)
+        logger.info(f"AWS data collected and saved to {output_file}")
+    except IOError as e:
+        logger.error(f"Failed to save AWS data to {output_file}: {e}")
+        raise
