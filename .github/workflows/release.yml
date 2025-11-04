@@ -1,0 +1,93 @@
+name: Release New Comparison
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        type: string
+  push:
+    paths:
+      - 'analysis/comparison_results.json'
+    branches:
+      - main
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          cd analysis
+          pip install -r requirements.txt
+
+      - name: Run comparison analysis
+        run: |
+          cd analysis
+          python run_comparison.py
+
+      - name: Generate release version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            VERSION="v$(date +'%Y.%m.%d')-$(git rev-parse --short HEAD)"
+            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract comparison results
+        id: results
+        run: |
+          cd analysis
+          if [ -f comparison_results.json ]; then
+            GCP_SCORE=$(python -c "import json; data=json.load(open('comparison_results.json')); print(f\"{data['overall']['gcp']:.2f}\")")
+            AWS_SCORE=$(python -c "import json; data=json.load(open('comparison_results.json')); print(f\"{data['overall']['aws']:.2f}\")")
+            WINNER=$(python -c "import json; data=json.load(open('comparison_results.json')); print('GCP' if data['overall']['gcp'] > data['overall']['aws'] else 'AWS')")
+            
+            echo "GCP_SCORE=$GCP_SCORE" >> $GITHUB_OUTPUT
+            echo "AWS_SCORE=$AWS_SCORE" >> $GITHUB_OUTPUT
+            echo "WINNER=$WINNER" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: "Comparison Results ${{ steps.version.outputs.VERSION }}"
+          body: |
+            # Cloud Providers Comparison Results
+            
+            ## 🏆 Winner: ${{ steps.results.outputs.WINNER }}
+            
+            ### Overall Scores
+            - **GCP**: ${{ steps.results.outputs.GCP_SCORE }}/100
+            - **AWS**: ${{ steps.results.outputs.AWS_SCORE }}/100
+            
+            ### Analysis Categories
+            - 💰 Financial (Cost-effectiveness)
+            - ⚡ Performance (Speed & Latency)
+            - 📈 Scalability (Growth Capacity)
+            - 🎓 Ease of Use (Learning & Deployment)
+            
+            See attached `comparison_results.json` for detailed analysis.
+          files: |
+            analysis/comparison_results.json
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

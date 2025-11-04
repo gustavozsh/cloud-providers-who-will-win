@@ -1,0 +1,182 @@
+{
+  "financial": {
+    "gcp": {
+      "score": 83.0,
+      "metrics": {
+        "pricing_model": 85,
+        "cost_predictability": 80,
+        "free_tier": 75,
+        "discounts": 90,
+        "billing_transparency": 85
+      },
+      "strengths": [
+        "Per-second billing for better cost optimization",
+        "Automatic sustained use discounts",
+        "Simpler pricing structure"
+      ],
+      "weaknesses": [
+        "Smaller free tier in some services"
+      ]
+    },
+    "aws": {
+      "score": 81.0,
+      "metrics": {
+        "pricing_model": 80,
+        "cost_predictability": 75,
+        "free_tier": 85,
+        "discounts": 85,
+        "billing_transparency": 80
+      },
+      "strengths": [
+        "Most comprehensive free tier",
+        "Wide range of pricing options",
+        "Mature cost management tools"
+      ],
+      "weaknesses": [
+        "Complex pricing can be harder to predict",
+        "Per-hour billing in many services"
+      ]
+    },
+    "category": "financial",
+    "description": "Analysis of cost-effectiveness and pricing models"
+  },
+  "performance": {
+    "gcp": {
+      "score": 87.6,
+      "metrics": {
+        "compute_performance": 88,
+        "network_latency": 90,
+        "storage_throughput": 85,
+        "database_performance": 87,
+        "cdn_performance": 88
+      },
+      "strengths": [
+        "Superior network infrastructure (Premium Tier)",
+        "Excellent BigQuery performance",
+        "High-performance computing options"
+      ],
+      "weaknesses": [
+        "Fewer compute instance types",
+        "Smaller global footprint"
+      ]
+    },
+    "aws": {
+      "score": 88.6,
+      "metrics": {
+        "compute_performance": 90,
+        "network_latency": 85,
+        "storage_throughput": 88,
+        "database_performance": 90,
+        "cdn_performance": 90
+      },
+      "strengths": [
+        "Widest variety of instance types",
+        "Excellent database performance (Aurora)",
+        "Largest global infrastructure"
+      ],
+      "weaknesses": [
+        "Network performance varies by configuration",
+        "Can be more expensive for premium performance"
+      ]
+    },
+    "category": "performance",
+    "description": "Analysis of speed, latency, and throughput"
+  },
+  "scalability": {
+    "gcp": {
+      "score": 86.8,
+      "metrics": {
+        "auto_scaling": 87,
+        "load_balancing": 90,
+        "service_limits": 80,
+        "multi_region_support": 85,
+        "serverless_scaling": 92
+      },
+      "strengths": [
+        "Excellent serverless scaling (Cloud Run)",
+        "Global load balancing built-in",
+        "GKE Autopilot simplifies scaling"
+      ],
+      "weaknesses": [
+        "Fewer regions than AWS",
+        "Some service limits lower than AWS"
+      ]
+    },
+    "aws": {
+      "score": 88.2,
+      "metrics": {
+        "auto_scaling": 90,
+        "load_balancing": 88,
+        "service_limits": 85,
+        "multi_region_support": 90,
+        "serverless_scaling": 88
+      },
+      "strengths": [
+        "Most regions and availability zones",
+        "Mature auto-scaling capabilities",
+        "Higher default service limits"
+      ],
+      "weaknesses": [
+        "More complex to configure scaling",
+        "Global load balancing requires more setup"
+      ]
+    },
+    "category": "scalability",
+    "description": "Analysis of growth capacity and elasticity"
+  },
+  "ease_of_use": {
+    "gcp": {
+      "score": 85.0,
+      "metrics": {
+        "documentation": 88,
+        "console_usability": 90,
+        "learning_curve": 85,
+        "deployment_tools": 87,
+        "community_support": 75
+      },
+      "strengths": [
+        "More intuitive console interface",
+        "Clearer documentation structure",
+        "Easier to get started for beginners",
+        "Simpler service naming"
+      ],
+      "weaknesses": [
+        "Smaller community and fewer resources",
+        "Less third-party tooling",
+        "Fewer training materials"
+      ]
+    },
+    "aws": {
+      "score": 81.4,
+      "metrics": {
+        "documentation": 82,
+        "console_usability": 75,
+        "learning_curve": 70,
+        "deployment_tools": 85,
+        "community_support": 95
+      },
+      "strengths": [
+        "Massive community and ecosystem",
+        "Extensive training and certification",
+        "More third-party integrations",
+        "Abundant learning resources"
+      ],
+      "weaknesses": [
+        "Steeper learning curve",
+        "More complex console",
+        "Service naming can be confusing",
+        "Documentation can be overwhelming"
+      ]
+    },
+    "category": "ease_of_use",
+    "description": "Analysis of learning curve and deployment ease"
+  },
+  "overall": {
+    "gcp": 85.5,
+    "aws": 84.78
+  },
+  "metadata": {
+    "timestamp": "2025-11-04T03:09:10.380377",
+    "version": "1.0.0"
+  }
+}
