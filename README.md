@@ -38,8 +38,7 @@ cloud-providers-who-will-win/
 
 - Python 3.8+
 - Node.js 16+
-- Credenciais GCP (opcional, para coleta de dados reais)
-- Credenciais AWS (opcional, para coleta de dados reais)
+- (Opcional) Credenciais GCP/AWS para coleta de dados reais - veja [docs/REAL_DATA_INTEGRATION.md](docs/REAL_DATA_INTEGRATION.md)
 
 ### Instalação
 
@@ -55,7 +54,15 @@ cd analysis
 pip install -r requirements.txt
 ```
 
-3. Configure o dashboard:
+3. (Opcional) Configure credenciais para dados reais:
+```bash
+# Copie o template de configuração
+cp .env.example .env
+# Edite .env com suas credenciais (nunca commite este arquivo!)
+# Veja docs/REAL_DATA_INTEGRATION.md para instruções detalhadas
+```
+
+4. Configure o dashboard:
 ```bash
 cd dashboard/frontend
 npm install

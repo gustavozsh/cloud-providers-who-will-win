@@ -212,6 +212,131 @@ Se você tem acesso a dados reais de benchmark ou pricing e gostaria de contribu
 3. Inclua timestamps e contexto
 4. Abra uma issue ou pull request
 
+### ⚠️ Considerações de Segurança para Uso de Contas Reais / Security Considerations for Real Accounts
+
+**IMPORTANTE**: Se você deseja usar contas reais de GCP/AWS para coleta de dados:
+
+#### ✅ Práticas Recomendadas / Best Practices:
+
+1. **Nunca compartilhe credenciais diretamente**
+   - Use variáveis de ambiente (`.env` files - nunca commitadas)
+   - Use service accounts com permissões mínimas necessárias
+   - Configure IAM roles específicas apenas para leitura
+
+2. **Permissões Mínimas Necessárias**
+   
+   **GCP Service Account**:
+   ```
+   roles/cloudconfig.configViewer
+   roles/iam.serviceAccountViewer
+   roles/compute.viewer (para dados de compute)
+   roles/billing.viewer (para dados de billing - CUIDADO)
+   ```
+
+   **AWS IAM Policy**:
+   ```json
+   {
+     "Effect": "Allow",
+     "Action": [
+       "pricing:DescribeServices",
+       "pricing:GetProducts",
+       "ce:GetCostAndUsage" // Use com cuidado
+     ],
+     "Resource": "*"
+   }
+   ```
+
+3. **Dados Sensíveis**
+   - ❌ NÃO colete dados de billing específicos da sua organização
+   - ❌ NÃO exponha informações de custos reais da sua empresa
+   - ✅ Use apenas APIs públicas de pricing
+   - ✅ Colete apenas métricas agregadas e anonimizadas
+
+4. **Segregação de Ambientes**
+   - Use contas de teste/desenvolvimento separadas
+   - Não use contas de produção com dados reais de clientes
+   - Configure budget alerts para evitar custos inesperados
+
+#### 🔒 Como Integrar de Forma Segura / How to Integrate Safely:
+
+1. **Configure credenciais localmente**:
+   ```bash
+   # GCP
+   gcloud auth application-default login
+   
+   # AWS
+   aws configure
+   ```
+
+2. **Use a estrutura existente**:
+   - Modifique apenas os collectors (`collectors/gcp/`, `collectors/aws/`)
+   - Mantenha as credenciais fora do repositório
+   - Use `.env` file (já está no `.gitignore`)
+
+3. **Exemplo de configuração segura**:
+   ```python
+   # collectors/gcp/collector.py
+   import os
+   from google.cloud import billing
+   
+   class GCPCollector:
+       def __init__(self):
+           # Credenciais vêm de variáveis de ambiente
+           self.project_id = os.getenv('GCP_PROJECT_ID')
+           # Nunca hardcode credenciais!
+   ```
+
+#### 💡 Alternativa Recomendada / Recommended Alternative:
+
+Em vez de usar credenciais de contas pessoais:
+
+1. **Use APIs públicas** (sem autenticação):
+   - GCP Pricing Calculator API (dados públicos)
+   - AWS Price List API (dados públicos)
+   - Estas fornecem dados oficiais sem expor sua conta
+
+2. **Crie dados de teste sintéticos baseados em uso real**:
+   - Analise sua conta privadamente
+   - Crie dados anonimizados e agregados
+   - Compartilhe apenas padrões, não dados específicos
+
+3. **Documente sua metodologia**:
+   - Como os dados foram coletados
+   - Quais métricas foram usadas
+   - Período de coleta
+   - Região/configuração testada
+
+#### 📊 O Que Pode Ser Compartilhado com Segurança / What Can Be Safely Shared:
+
+✅ **Sim / Yes**:
+- Pricing público de serviços
+- Benchmarks de performance (CPU, rede, armazenamento)
+- Latências entre regiões
+- Limites de serviço documentados
+- Comparações de features
+
+❌ **Não / No**:
+- Custos específicos da sua organização
+- Informações de billing privadas
+- Configurações de segurança
+- Dados de clientes ou workloads privados
+- Credenciais ou tokens de acesso
+
+---
+
+## 🚨 Aviso Legal Importante / Important Legal Notice
+
+**Para Contribuidores com Acesso a Contas Reais**:
+
+Ao contribuir com dados de contas reais:
+- Você é responsável por garantir que tem permissão para compartilhar os dados
+- Verifique os termos de serviço do provedor sobre compartilhamento de dados
+- Não viole acordos de confidencialidade (NDAs)
+- Anonimize todos os dados sensíveis
+- Este projeto não se responsabiliza por violações de termos de serviço
+
+**Recomendação**: Use apenas APIs públicas de pricing que não requerem autenticação ou use dados completamente anonimizados e agregados.
+
 ---
 
 ## 📧 Contato / Contact

@@ -33,6 +33,15 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Credentials and secrets (NEVER commit these!)
+*.key
+*.pem
+*-key.json
+gcp-key.json
+aws-credentials.json
+credentials.json
+service-account*.json
+
 # Logs
 *.log
 logs/
